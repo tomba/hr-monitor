@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ble"
+version = "0.1"
+dependencies = [
+]
+requires-python = ">=3.8"
+authors = [
+  {name = "Tomi Valkeinen", email = "tomi.valkeinen@iki.fi"},
+]
+maintainers = [
+  {name = "Tomi Valkeinen", email = "tomi.valkeinen@iki.fi"},
+]
+description = "BLE HR monitor"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+extend-select = ['E', 'W', 'F', 'FA', 'Q', 'UP', 'PLE', 'PLW']
+ignore = ['E741', 'E501', 'Q001', 'E702', 'UP032']  # TODO: fix E501
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = 'single'
+multiline-quotes = 'single'
+
+[tool.ruff.format]
+quote-style = 'single'
