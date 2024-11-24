@@ -6,6 +6,8 @@ import pickle
 import socket
 import sys
 
+import dbus
+
 from PyQt6 import QtCore, QtGui, QtWidgets, QtCharts
 
 HOST = '127.0.0.1'
@@ -136,6 +138,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self.axisX.setMax(dt)
 
 def main():
+
+    bus = dbus.SessionBus()
+    saver = bus.get_object('org.freedesktop.ScreenSaver', '/ScreenSaver')
+    saver_interface = dbus.Interface(saver, dbus_interface='org.freedesktop.ScreenSaver')
+
+    cookie=saver_interface.Inhibit("ble-client", "because I want it")
+
     app = QtWidgets.QApplication(sys.argv)
 
     window = MainWindow()
@@ -143,6 +152,8 @@ def main():
     window.showMaximized()
 
     app.exec()
+
+    saver_interface.UnInhibit(cookie)
 
 if __name__ == '__main__':
     sys.exit(main())
