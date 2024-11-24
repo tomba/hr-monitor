@@ -39,8 +39,14 @@ class HRMonitor:
         heart_rate = data[1]
         print(f'Heart Rate: {heart_rate} BPM')
 
+        if len(data) > 2:
+            rr_interval = int.from_bytes(data[2:4], byteorder='little')
+            print(f'RR Interval: {rr_interval} ms')
+        else:
+            rr_interval = None
+
         assert self.hr_file
-        self.hr_file.write(f'{int(time.time() * 1000)},{heart_rate}\n')
+        self.hr_file.write(f'{int(time.time() * 1000)},{heart_rate},{rr_interval}\n')
 
         hr_data = (time.time(), data)
 
